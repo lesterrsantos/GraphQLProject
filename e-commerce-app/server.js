@@ -5,6 +5,7 @@ import { typeDefs } from "./schema.js";
 import { Query } from "./resolvers/Query.js";
 import { Product } from "./resolvers/Product.js";
 import { Category } from "./resolvers/Category.js";
+import { categories, products } from "./db.js";
 
 // String, Int, Float, Boolean
 // Array
@@ -15,6 +16,10 @@ const server = new ApolloServer({
     Query,
     Category,
     Product,
+  },
+  context: {
+    categories,
+    products,
   },
 });
 

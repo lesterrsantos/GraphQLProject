@@ -1,8 +1,5 @@
-import { products } from "../db.js";
-
 export const Category = {
-  products: (parent, args, context) => {
-    const categoryId = parent.id;
+  products: ({ id: categoryId }, args, { products }) => {
     return products.filter((product) => product.categoryId === categoryId);
   },
 };

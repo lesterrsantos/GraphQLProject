@@ -1,5 +1,3 @@
-import { categories, products } from "../db.js";
-
 export const Query = {
   hello: () => {
     return "World!!!!!";
@@ -16,20 +14,16 @@ export const Query = {
   words: () => {
     return ["animals", "fruits", "mother"];
   },
-  products: () => {
+  products: (parent, args, { products }) => {
     return products;
   },
-  product: (parent, args, context) => {
-    const productId = args.id;
-    const product = products.find((product) => product.id === productId);
-    if (!product) return null;
-    return product;
+  product: (parent, { id }, { products }) => {
+    return products.find((product) => product.id === id);
   },
-  categories: () => {
+  categories: (parent, args, { categories }) => {
     return categories;
   },
-  category: (parent, args, context) => {
-    const { id } = args;
+  category: (parent, { id }, { categories }) => {
     return categories.find((category) => category.id === id);
   },
 };
