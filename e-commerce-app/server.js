@@ -1,42 +1,21 @@
 import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
 
+import { typeDefs } from "./schema.js";
+import { Query } from "./resolvers/Query.js";
+import { Product } from "./resolvers/Product.js";
+import { Category } from "./resolvers/Category.js";
+
 // String, Int, Float, Boolean
 // Array
 
-const typeDefs = `#graphql
-  type Query {
-    hello: String! #Always the returned value must be a string
-    numberOfAnimals: Int
-    price: Float
-    isCool: Boolean,
-    words: [String!]!
-  }
-`;
-
-const resolvers = {
-  Query: {
-    hello: () => {
-      return "World!!!!!";
-    },
-    numberOfAnimals: () => {
-      return 55;
-    },
-    price: () => {
-      return 2314.5689;
-    },
-    isCool: () => {
-      return false;
-    },
-    words: () => {
-      return ["animals", "fruits", "mother"];
-    },
-  },
-};
-
 const server = new ApolloServer({
   typeDefs,
-  resolvers,
+  resolvers: {
+    Query,
+    Category,
+    Product,
+  },
 });
 
 const { url } = await startStandaloneServer(server, {
